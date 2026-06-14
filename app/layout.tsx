@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   },
   description:
     'Compare GLP-1 weight loss clinics by medication type (semaglutide, tirzepatide), pricing, insurance, and physician credentials. Find a verified clinic near you.',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.findglp1clinic.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://findglp1clinic.com'),
   openGraph: {
     siteName: 'FindGLP1Clinic.com',
     type: 'website',
