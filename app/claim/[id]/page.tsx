@@ -135,6 +135,26 @@ function UpgradeScreen({ listingId }: { listingId: string }) {
           </p>
         </div>
 
+        <div className="text-center mb-6">
+          <div className="text-5xl font-bold text-gray-900">0</div>
+          <div className="text-gray-500 mt-1">people viewed your profile this month</div>
+          <div className="mt-3 text-red-600 font-semibold">0 could contact you — your phone and website are hidden</div>
+        </div>
+
+        <div className="space-y-3 mb-6 text-left">
+          {([
+            ['Your phone number visible to searchers', 'They can call you directly'],
+            ['Your website linked', 'Drive traffic to your practice site'],
+            ['Your full bio displayed', 'Build trust before they reach out'],
+            ['Verified badge', 'Stand out from unclaimed profiles'],
+          ] as [string, string][]).map(([title, sub]) => (
+            <div key={title} className="flex items-start gap-3">
+              <span className="text-green-500 text-lg">✓</span>
+              <div><div className="font-medium">{title}</div><div className="text-sm text-gray-500">{sub}</div></div>
+            </div>
+          ))}
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Verified */}
           <div className="card p-6 border-teal ring-2 ring-teal ring-offset-2">
@@ -144,21 +164,13 @@ function UpgradeScreen({ listingId }: { listingId: string }) {
             </div>
             <div className="text-3xl font-bold text-charcoal mb-1">$99<span className="text-sm text-gray-400 font-normal">/yr</span></div>
             <p className="text-xs text-gray-500 mb-4">Full profile + patient contact form</p>
-            <ul className="space-y-1.5 mb-5 text-sm text-gray-700">
-              {['Full medication & pricing details', 'Patient contact form', '"Verified" badge', 'Priority placement'].map((f) => (
-                <li key={f} className="flex items-center gap-2">
-                  <CheckCircle className="h-3.5 w-3.5 text-teal-300 flex-shrink-0" />
-                  {f}
-                </li>
-              ))}
-            </ul>
             <button
               onClick={() => handleUpgrade('verified')}
               disabled={!!loading}
               className="btn-primary w-full py-2.5 text-sm"
             >
               {loading === 'verified' ? 'Redirecting...' : (
-                <>Upgrade to Verified <ArrowRight className="h-4 w-4" /></>
+                <span className="flex items-center justify-center gap-1">Upgrade to Verified <ArrowRight className="h-4 w-4" /></span>
               )}
             </button>
           </div>
@@ -171,21 +183,13 @@ function UpgradeScreen({ listingId }: { listingId: string }) {
             </div>
             <div className="text-3xl font-bold text-charcoal mb-1">$199<span className="text-sm text-gray-400 font-normal">/yr</span></div>
             <p className="text-xs text-gray-500 mb-4">Top placement + all Verified features</p>
-            <ul className="space-y-1.5 mb-5 text-sm text-gray-700">
-              {['Top 3 in city search', 'Highlighted card + logo', 'Promo callout space', 'Monthly analytics'].map((f) => (
-                <li key={f} className="flex items-center gap-2">
-                  <CheckCircle className="h-3.5 w-3.5 text-amber-300 flex-shrink-0" />
-                  {f}
-                </li>
-              ))}
-            </ul>
             <button
               onClick={() => handleUpgrade('featured')}
               disabled={!!loading}
               className="btn-amber w-full py-2.5 text-sm"
             >
               {loading === 'featured' ? 'Redirecting...' : (
-                <>Upgrade to Featured <ArrowRight className="h-4 w-4" /></>
+                <span className="flex items-center justify-center gap-1">Upgrade to Featured <ArrowRight className="h-4 w-4" /></span>
               )}
             </button>
           </div>
