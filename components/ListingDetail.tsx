@@ -3,12 +3,14 @@ import { MapPin, Phone, Globe, ShieldCheck, Stethoscope, Wifi, DollarSign, Check
 import type { Listing } from '@/lib/types'
 import { formatPrice, getMedicationLabels, getClinicTypeLabel, formatListingAddress } from '@/lib/utils'
 import ContactForm from './ContactForm'
+import { ViewTracker } from './ViewTracker'
 
 interface ListingDetailProps {
   listing: Listing
+  monthlyViews: number
 }
 
-export default function ListingDetail({ listing }: ListingDetailProps) {
+export default function ListingDetail({ listing, monthlyViews }: ListingDetailProps) {
   const {
     id, clinic_name, address_line1, city, state, zip, phone, website,
     medications_offered, is_compounded, insurance_accepted, insurance_plans,
@@ -16,6 +18,7 @@ export default function ListingDetail({ listing }: ListingDetailProps) {
     clinic_type, telehealth_states, accepting_new_patients, listing_tier, claimed,
   } = listing
 
+  const isClaimed = claimed === true
   const isFeatured = listing_tier === 'featured'
   const isVerified = listing_tier === 'verified' || isFeatured
   const price = formatPrice(monthly_price_min, monthly_price_max)
@@ -24,6 +27,8 @@ export default function ListingDetail({ listing }: ListingDetailProps) {
 
   return (
     <div className="max-w-4xl mx-auto">
+      <ViewTracker listingId={String(id)} directorySlug="glp1-clinics" />
+
       {/* Breadcrumb */}
       <nav className="flex items-center gap-1.5 text-sm text-gray-500 mb-6">
         <Link href="/" className="hover:text-teal">Home</Link>
@@ -67,22 +72,43 @@ export default function ListingDetail({ listing }: ListingDetailProps) {
             )}
 
             <div className="flex flex-wrap items-center gap-4 text-sm">
-              {phone && (
-                <a href={`tel:${phone}`} className="flex items-center gap-1.5 text-teal hover:text-teal-600 font-medium">
-                  <Phone className="h-4 w-4" />
-                  {phone}
-                </a>
-              )}
-              {website && (
-                <a href={website} target="_blank" rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 text-teal hover:text-teal-600 font-medium">
-                  <Globe className="h-4 w-4" />
-                  Visit Website
-                  <ExternalLink className="h-3 w-3" />
-                </a>
+              {isClaimed ? (
+                <>
+                  {phone && (
+                    <a href={`tel:${phone}`} className="flex items-center gap-1.5 text-teal hover:text-teal-600 font-medium">
+                      <Phone className="h-4 w-4" />
+                      {phone}
+                    </a>
+                  )}
+                  {website && (
+                    <a href={website} target="_blank" rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 text-teal hover:text-teal-600 font-medium">
+                      <Globe className="h-4 w-4" />
+                      Visit Website
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
+                  )}
+                </>
+              ) : (
+                <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 text-center w-full">
+                  <p className="text-sm text-gray-500">Phone, website, and bio are only visible after this provider claims their listing.</p>
+                  <a href={`/claim/${id}`} className="mt-2 inline-block text-sm font-medium text-blue-600 hover:underline">
+                    Is this you? Claim your free profile →
+                  </a>
+                </div>
               )}
             </div>
           </div>
+
+          {/* Monthly views stats (claimed listings only) */}
+          {isClaimed && (
+            <div className="mb-6 rounded-xl border border-blue-200 bg-blue-50 p-4">
+              <p className="text-xs font-semibold uppercase tracking-wide text-blue-600">Profile Activity</p>
+              <p className="mt-1 text-3xl font-bold text-blue-900">{monthlyViews}</p>
+              <p className="text-sm text-blue-700">people viewed your profile this month</p>
+              <p className="mt-2 text-xs text-blue-600">0 could contact you. <a href={`/claim/${id}?upgrade=true`} className="underline font-medium">Upgrade to be reachable →</a></p>
+            </div>
+          )}
 
           {/* GLP-1 Info */}
           <div className="card p-6">
@@ -156,7 +182,7 @@ export default function ListingDetail({ listing }: ListingDetailProps) {
           </div>
 
           {/* Claim banner (unclaimed) */}
-          {!claimed && (
+          {!isClaimed && (
             <div className="rounded-2xl bg-teal-50 border border-teal-100 p-5 text-sm">
               <p className="font-semibold text-teal-700 mb-1">Is this your clinic?</p>
               <p className="text-teal-600 mb-3">
@@ -181,7 +207,7 @@ export default function ListingDetail({ listing }: ListingDetailProps) {
               <p className="text-xs text-gray-500 mb-3">
                 Upgrade to Verified to enable your contact form and receive patient inquiries directly.
               </p>
-              {claimed ? (
+              {isClaimed ? (
                 <Link href={`/claim/${id}?verified=true`} className="btn-amber text-xs px-4 py-2">
                   Upgrade Now — $99/yr
                 </Link>

@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { getListingBySlug, getAllSlugs } from '@/lib/data'
 import ListingDetail from '@/components/ListingDetail'
 import { getAbsoluteUrl, formatPrice, getMedicationLabels } from '@/lib/utils'
+import { createServiceClient } from '@/lib/supabase/server'
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -53,6 +54,12 @@ export default async function ListingPage({ params }: PageProps) {
 
   const medLabels = getMedicationLabels(listing.medications_offered)
 
+  const monthStart = new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString()
+  const supabase = await createServiceClient()
+  const { count: viewCount } = await supabase.from('listing_views').select('*', { count: 'exact', head: true })
+    .eq('directory_slug', 'glp1-clinics').eq('listing_id', String(listing.id)).gte('viewed_at', monthStart)
+  const monthlyViews = viewCount ?? 0
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'MedicalClinic',
@@ -69,7 +76,7 @@ export default async function ListingPage({ params }: PageProps) {
     telephone: listing.phone,
     url: listing.website,
     priceRange: listing.monthly_price_min
-      ? `$${listing.monthly_price_min}–$${listing.monthly_price_max ?? listing.monthly_price_min}/mo`
+      ? `$${listing.monthly_price_min}–${listing.monthly_price_max ?? listing.monthly_price_min}/mo`
       : undefined,
     availableService: medLabels.map((m) => ({
       '@type': 'MedicalTherapy',
@@ -83,7 +90,7 @@ export default async function ListingPage({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ListingDetail listing={listing} />
+      <ListingDetail listing={listing} monthlyViews={monthlyViews} />
     </div>
   )
 }
