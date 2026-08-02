@@ -1,8 +1,36 @@
 import type { MetadataRoute } from 'next'
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://findglp1clinic.com'
+
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [{ userAgent: '*', allow: '/' }],
-    sitemap: 'https://www.findglp1clinic.com/sitemap.xml',
+    rules: [
+      {
+        userAgent: '*',
+        allow: '/',
+        disallow: ['/api/'],
+      },
+      {
+        userAgent: 'OAI-SearchBot',
+        allow: '/',
+      },
+      {
+        userAgent: 'Claude-SearchBot',
+        allow: '/',
+      },
+      {
+        userAgent: 'PerplexityBot',
+        allow: '/',
+      },
+      {
+        userAgent: 'GPTBot',
+        allow: '/',
+      },
+      {
+        userAgent: 'anthropic-ai',
+        allow: '/',
+      },
+    ],
+    sitemap: `${siteUrl}/sitemap.xml`,
   }
 }
