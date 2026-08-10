@@ -60,6 +60,8 @@ export default async function ListingPage({ params }: PageProps) {
     .eq('directory_slug', 'glp1-clinics').eq('listing_id', String(listing.id)).gte('viewed_at', monthStart)
   const monthlyViews = viewCount ?? 0
 
+  const isClaimed = listing.listing_tier !== 'unclaimed' && listing.listing_tier != null
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'MedicalClinic',
@@ -73,8 +75,8 @@ export default async function ListingPage({ params }: PageProps) {
       postalCode: listing.zip,
       addressCountry: 'US',
     },
-    telephone: listing.phone,
-    url: listing.website,
+    telephone: isClaimed ? (listing.phone ?? undefined) : undefined,
+    url: isClaimed ? (listing.website ?? undefined) : undefined,
     priceRange: listing.monthly_price_min
       ? `$${listing.monthly_price_min}–${listing.monthly_price_max ?? listing.monthly_price_min}/mo`
       : undefined,
