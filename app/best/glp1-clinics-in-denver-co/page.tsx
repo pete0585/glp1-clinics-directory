@@ -6,7 +6,7 @@ import { getListingsByCity } from '@/lib/data'
 
 export const metadata: Metadata = {
   title: 'Best GLP-1 Weight Loss Clinics in Denver, CO (2026) | FindGLP1Clinic.com',
-  description: 'Top GLP-1 clinics in Denver for semaglutide and tirzepatide weight loss. Compare physician-supervised programs, UCHealth and Presbyterian/St. Luke's affiliates, and telehealth options across the Front Range.',
+  description: "Top GLP-1 clinics in Denver for semaglutide and tirzepatide weight loss. Compare physician-supervised programs, UCHealth and Presbyterian/St. Luke's affiliates, and telehealth options across the Front Range.",
   alternates: { canonical: '/best/glp1-clinics-in-denver-co' },
 }
 
