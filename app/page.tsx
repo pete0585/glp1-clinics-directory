@@ -9,7 +9,7 @@ import { CATEGORIES } from '@/lib/types'
 export const metadata: Metadata = {
   title: 'FindGLP1Clinic.com — Find a GLP-1 Weight Loss Clinic Near You',
   description:
-    'Compare GLP-1 weight loss clinics by medication type (semaglutide, tirzepatide), pricing, insurance, and physician credentials. Free to search. Thousands of verified clinics nationwide.',
+    'Compare GLP-1 weight loss clinics by medication type, pricing, and insurance. Semaglutide, tirzepatide, and more. Thousands of verified clinics.',
 }
 
 const TOP_CITIES = [
