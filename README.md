@@ -94,7 +94,10 @@ Configure in Resend Dashboard → Inbound → Add webhook:
 
 ## IndexNow
 
-IndexNow key file is at `public/c7c9fdbc59369e084532256b7e15187b.txt`. The key is `c7c9fdbc59369e084532256b7e15187b`.
+IndexNow uses a 32-character hex verification key. The live key belongs in Vercel (and as the public verification file on the deployment), not in this README.
+
+- Host the key file at `public/<INDEXNOW_KEY>.txt` on the deployment (filename and file contents must both be the key)
+- Keep the live value in Vercel / the deployed `public/<INDEXNOW_KEY>.txt` file only
 
 ## Architecture
 
