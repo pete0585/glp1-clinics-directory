@@ -1,13 +1,44 @@
+import { existsSync } from 'node:fs'
+import { readdir } from 'node:fs/promises'
+import { join } from 'node:path'
 import type { MetadataRoute } from 'next'
 import { getAllSlugs, getStateCounts } from '@/lib/data'
 import { CATEGORIES } from '@/lib/types'
 
-const BASE_URL = 'https://www.findglp1clinic.com'
+const BASE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.findglp1clinic.com').replace(/\/$/, '')
+
+async function getCityPages(): Promise<MetadataRoute.Sitemap> {
+  const bestDir = join(process.cwd(), 'app', 'best')
+  let slugs: string[] = []
+
+  try {
+    const dirents = await readdir(bestDir, { withFileTypes: true })
+    slugs = dirents
+      .filter((entry) => entry.isDirectory())
+      .map((entry) => entry.name)
+      .filter((name) =>
+        ['page.tsx', 'page.ts', 'page.jsx', 'page.js'].some((file) =>
+          existsSync(join(bestDir, name, file))
+        )
+      )
+      .sort()
+  } catch {
+    slugs = []
+  }
+
+  return slugs.map((slug) => ({
+    url: `${BASE_URL}/best/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }))
+}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [slugs, stateCounts] = await Promise.all([
+  const [slugs, stateCounts, cityPages] = await Promise.all([
     getAllSlugs().catch(() => [] as string[]),
     getStateCounts().catch(() => [] as { state: string; count: number }[]),
+    getCityPages(),
   ])
 
   const staticPages: MetadataRoute.Sitemap = [
@@ -37,5 +68,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }))
 
-  return [...staticPages, ...categoryPages, ...statePages, ...listingPages]
+  return [...staticPages, ...categoryPages, ...statePages, ...listingPages, ...cityPages]
 }

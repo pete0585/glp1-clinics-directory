@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server"
 export const metadata: Metadata = {
   title: "Best GLP-1 Weight Loss Clinic in Dallas, TX | GLP-1 Weight Loss Clinic Directory",
   description: "Find glp-1 weight loss clinic in Dallas, Texas. 34+ listed. Filter by city and compare providers.",
+  alternates: { canonical: "/best/glp1-clinics-dallas-tx" },
 }
 
 async function getListings() {

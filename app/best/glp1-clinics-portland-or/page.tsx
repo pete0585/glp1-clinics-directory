@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server"
 export const metadata: Metadata = {
   title: "Best GLP-1 Weight Loss Clinic in Portland, OR | GLP-1 Weight Loss Clinic Directory",
   description: "Find glp-1 weight loss clinic in Portland, Oregon. 31+ listed. Filter by city and compare providers.",
+  alternates: { canonical: "/best/glp1-clinics-portland-or" },
 }
 
 async function getListings() {

@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server"
 export const metadata: Metadata = {
   title: "Best GLP-1 Weight Loss Clinic in San Antonio, TX | GLP-1 Weight Loss Clinic Directory",
   description: "Find glp-1 weight loss clinic in San Antonio, Texas. 42+ listed. Filter by city and compare providers.",
+  alternates: { canonical: "/best/glp1-clinics-san-antonio-tx" },
 }
 
 async function getListings() {

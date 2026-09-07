@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server"
 export const metadata: Metadata = {
   title: "Best GLP-1 Weight Loss Clinic in San Diego, CA | GLP-1 Weight Loss Clinic Directory",
   description: "Find glp-1 weight loss clinic in San Diego, California. 33+ listed. Filter by city and compare providers.",
+  alternates: { canonical: "/best/glp1-clinics-san-diego-ca" },
 }
 
 async function getListings() {
