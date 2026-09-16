@@ -1,3 +1,4 @@
+import {articles as editorialArticles} from '@/lib/editorial-blog'
 import { existsSync } from 'node:fs'
 import { readdir } from 'node:fs/promises'
 import { join } from 'node:path'
@@ -34,7 +35,7 @@ async function getCityPages(): Promise<MetadataRoute.Sitemap> {
   }))
 }
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+async function originalSitemap(): Promise<MetadataRoute.Sitemap> {
   const [slugs, stateCounts, cityPages] = await Promise.all([
     getAllSlugs().catch(() => [] as string[]),
     getStateCounts().catch(() => [] as { state: string; count: number }[]),
@@ -70,3 +71,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [...staticPages, ...categoryPages, ...statePages, ...listingPages, ...cityPages]
 }
+
+export default async function editorialSitemap():Promise<MetadataRoute.Sitemap>{const existing=await originalSitemap();const site="https://findglp1clinic.com";return [...existing,{url:site+'/blog',changeFrequency:'weekly'},...editorialArticles().map(p=>({url:site+'/blog/'+p.slug,lastModified:new Date(p.date),changeFrequency:'monthly' as const}))]}
