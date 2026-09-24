@@ -224,19 +224,17 @@ export default async function HomePage() {
             For GLP-1 clinic owners
           </div>
           <h2 className="text-3xl font-bold text-white mb-4 tracking-tight">
-            One new patient covers your listing fee in the first month.
+            Get your practice in front of patients who are searching right now.
           </h2>
           <p className="text-teal-100 text-lg mb-8 leading-relaxed">
             GLP-1 patients are actively searching right now. A Verified listing puts your clinic
-            in front of motivated patients who are ready to start treatment — for $99/year.
+            in front of motivated patients who are ready to start treatment.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/submit" className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-base font-semibold text-teal hover:bg-teal-50 transition-colors">
               Get Listed Free
             </Link>
-            <Link href="/submit#pricing" className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white/50 px-8 py-4 text-base font-semibold text-white hover:border-white transition-colors">
-              View Pricing
-            </Link>
+            
           </div>
         </div>
       </section>
