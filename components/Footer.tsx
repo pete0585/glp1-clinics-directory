@@ -12,7 +12,6 @@ const MEDICATION_LINKS = [
 
 const PROVIDER_LINKS = [
   { href: '/submit', label: 'List Your Clinic' },
-  { href: '/submit#pricing', label: 'View Pricing' },
   { href: '/claim', label: 'Claim Your Listing' },
 ]
 
