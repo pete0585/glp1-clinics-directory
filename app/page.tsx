@@ -5,6 +5,7 @@ import SearchBar from '@/components/SearchBar'
 import ListingCard from '@/components/ListingCard'
 import { getFeaturedListings, getTotalCount } from '@/lib/data'
 import { CATEGORIES } from '@/lib/types'
+import NewsletterSignup from '@/components/NewsletterSignup'
 
 export const metadata: Metadata = {
   title: 'FindGLP1Clinic.com — Find a GLP-1 Weight Loss Clinic Near You',
