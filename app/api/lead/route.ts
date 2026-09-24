@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
 
   // Forward to clinic if Resend configured and listing has email
   const resendApiKey = process.env.RESEND_API_KEY
-  if (resendApiKey && listing.email && listing.listing_tier !== 'free') {
+  if (resendApiKey && listing.email) {
     await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
