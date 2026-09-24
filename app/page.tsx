@@ -42,13 +42,22 @@ export default async function HomePage() {
           </div>
 
           <h1 className="text-4xl font-bold text-charcoal leading-tight sm:text-5xl md:text-6xl tracking-tight text-balance">
-            Find a GLP-1 clinic{' '}
-            <span className="text-teal">that fits your situation</span>
+            Find trusted GLP-1 clinics near you
           </h1>
 
           <p className="mt-5 text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            Compare medication types, monthly pricing, insurance acceptance, and physician
-            credentials — before you book. Semaglutide, tirzepatide, brand name or compounded.
+            Browse verified GLP-1 clinics by medication type, pricing, and insurance — and connect directly. Free, always.
+          </p>
+          <p className="text-sm text-gray-500 mt-4">
+            Are you a GLP-1 clinic?{' '}
+            <a
+              href="https://studiozerohq.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:opacity-80"
+            >
+              List your practice free →
+            </a>
           </p>
 
           <div className="mt-8 flex justify-center">
