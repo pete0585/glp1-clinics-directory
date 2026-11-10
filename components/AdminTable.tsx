@@ -58,7 +58,7 @@ export default function AdminTable({ listings: initialListings }: AdminTableProp
               <td className="px-4 py-3">
                 <p className="text-gray-600">{l.phone ?? '—'}</p>
                 {l.website && (
-                  <a href={l.website} target="_blank" rel="noopener noreferrer"
+                  <a data-directory-action="website_click" href={l.website} target="_blank" rel="noopener noreferrer"
                     className="flex items-center gap-1 text-xs text-teal hover:underline mt-0.5">
                     Website <ExternalLink className="h-3 w-3" />
                   </a>

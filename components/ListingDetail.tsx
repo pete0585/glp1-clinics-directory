@@ -56,7 +56,7 @@ export default function ListingDetail({ listing, monthlyViews }: ListingDetailPr
                       <Phone className="h-4 w-4"/>
                       {phone}
                     </a>)}
-                  {website && (<a href={website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-teal hover:text-teal-600 font-medium">
+                  {website && (<a data-directory-action="website_click" href={website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-teal hover:text-teal-600 font-medium">
                       <Globe className="h-4 w-4"/>
                       Visit Website
                       <ExternalLink className="h-3 w-3"/>
